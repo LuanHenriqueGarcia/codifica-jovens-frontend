@@ -5,9 +5,11 @@ import '../assets/css/style.css';
 import 'boxicons/css/boxicons.min.css';
 import imageToAdd from "./../assets/img/image.png";
 import imageToAdd2 from "./../assets/img/image1.png";
+import {  Button } from '@chakra-ui/react';
 
+import { Link as RouterLink } from 'react-router-dom';
 
-const App: React.FC = () => {
+const Home: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const generos = ["Professora ", "Professor "];
   const texts = ["Realidade virtual, Robótica e IA", "Word, Excel e Lógica de programação"];
@@ -63,9 +65,8 @@ const App: React.FC = () => {
       window.onscroll = null;
     };
   }, [currentIndex]);
-
-
-
+ 
+  
 
   return (
     <div>
@@ -95,8 +96,16 @@ const App: React.FC = () => {
           </div>
           <p>Eu estou aqui para apresentar a ideia que já está em prática. Uma parceria entre as empresas Gazin e Unipar, com o propósito de preparar jovens para o futuro.</p>
           <div className="btn-box">
-            <a href="videos.tsx" className="btn">turmas</a>
-            <a href="videos.tsx" className="btn">Aulas</a>
+             <div>
+                <Button as={RouterLink} to="/" mr={4} variant="outline" className='btn'>
+                  turmas
+                </Button>
+             </div>
+             <div>
+                <Button as={RouterLink} to="/Videos" mr={4} variant="outline" className='btn'>
+                  Aulas
+                </Button>
+             </div>
           </div>
         </div>
 
@@ -317,5 +326,4 @@ const App: React.FC = () => {
   );
 };
 
-
-export default App;
+export default Home;

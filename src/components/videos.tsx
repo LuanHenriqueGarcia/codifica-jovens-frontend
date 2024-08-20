@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import '../css/style.css'; 
+import '../assets/css/style.css'; 
+
+
 
 interface Video {
   title: string;
@@ -7,7 +9,9 @@ interface Video {
   src: string;
 }
 
-const videos: Video[] = [
+
+
+const Aula: Video[] = [
   {
     title: 'Módulo Word',
     date: '20/04/2024',
@@ -51,7 +55,7 @@ const Videos: React.FC = () => {
     <section className="videos" id="videos">
       <h2 className="heading">Aulas <span>Em Vídeo</span></h2>
       <div className="video-container">
-        {videos.map((video, index) => (
+        {Aula.map((video, index) => (
           <div className="video-item" key={index}>
             <div className="video-overlay">
               <h3>{video.title} <i className='bx bxs-calendar'></i>{video.date}</h3>
