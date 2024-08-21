@@ -6,7 +6,6 @@ import 'boxicons/css/boxicons.min.css';
 import imageToAdd from "./../assets/img/image.png";
 import imageToAdd2 from "./../assets/img/image1.png";
 import {  Button } from '@chakra-ui/react';
-
 import { Link as RouterLink } from 'react-router-dom';
 
 const Home: React.FC = () => {
@@ -72,7 +71,7 @@ const Home: React.FC = () => {
     <div>
       <header className="header">
         <a href="#a" className="logo">
-          <span style={{ color: '#c9fe00' }}>&lt;</span>od<span style={{ color: '#c9fe00' }}>: </span>fica
+          <span style={{ color: '#c9fe00' }}>&lt;</span>od<span style={{ color: '#c9fe00' }}>:</span>fica
           Jo<span id="barra">
             \<span style={{ color: '#c9fe00' }}>/</span>
           </span>ens <span style={{ color: '#c9fe00' }}> _ </span>
@@ -97,13 +96,13 @@ const Home: React.FC = () => {
           <p>Eu estou aqui para apresentar a ideia que já está em prática. Uma parceria entre as empresas Gazin e Unipar, com o propósito de preparar jovens para o futuro.</p>
           <div className="btn-box">
              <div>
-                <Button as={RouterLink} to="/" mr={4} variant="outline" className='btn'>
-                  turmas
+                <Button as={RouterLink} to="/cadastrar" mr={4} variant="outline" className='btn'>
+                  cadastrar-se
                 </Button>
              </div>
              <div>
-                <Button as={RouterLink} to="/Videos" mr={4} variant="outline" className='btn'>
-                  Aulas
+                <Button as={RouterLink} to="/Login" mr={4} variant="outline" className='btn'>
+                  Login
                 </Button>
              </div>
           </div>

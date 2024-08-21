@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
-import '../assets/css/style.css'; 
-
-
+import '../assets/css/videos.css';
 
 interface Video {
   title: string;
   date: string;
   src: string;
 }
-
-
 
 const Aula: Video[] = [
   {
@@ -45,10 +41,10 @@ const Aula: Video[] = [
 ];
 
 const Videos: React.FC = () => {
-  const [visibleVideo, setVisibleVideo] = useState<string | null>(null);
+  const [visibleVideos, setVisibleVideos] = useState<string[]>([]);
 
   const handleButtonClick = (src: string) => {
-    setVisibleVideo(src);
+    setVisibleVideos((prevVisibleVideos) => [...prevVisibleVideos, src]);
   };
 
   return (
@@ -59,15 +55,20 @@ const Videos: React.FC = () => {
           <div className="video-item" key={index}>
             <div className="video-overlay">
               <h3>{video.title} <i className='bx bxs-calendar'></i>{video.date}</h3>
-              <button onClick={() => handleButtonClick(video.src)}>Assistir Aula</button>
+              {!visibleVideos.includes(video.src) && (
+                <button onClick={() => handleButtonClick(video.src)}>Assistir Aula</button>
+              )}
             </div>
-            {visibleVideo === video.src && (
-              <iframe
-                src={video.src}
-                frameBorder="0"
-                allowFullScreen
-                title={video.title}
-              />
+            {visibleVideos.includes(video.src) && (
+              <div className="iframe-container">
+                <iframe
+                  src={video.src}
+                  frameBorder="0"
+                  allowFullScreen
+                  title={video.title}
+                  className="video-frame"
+                />
+              </div>
             )}
           </div>
         ))}
