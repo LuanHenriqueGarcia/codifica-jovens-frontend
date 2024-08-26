@@ -257,9 +257,9 @@ section {
   text-align: center;
 }
 
-span {
+/* span {
   color: var(--main-color);
-}
+} */
 
 .about-img {
   position: relative;

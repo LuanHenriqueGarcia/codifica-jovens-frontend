@@ -1,11 +1,9 @@
-
-
 import React, { useState, useEffect } from 'react';
 import '../assets/css/style.css';
 import 'boxicons/css/boxicons.min.css';
 import imageToAdd from "./../assets/img/image.png";
 import imageToAdd2 from "./../assets/img/image1.png";
-import {  Button } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 
 const Home: React.FC = () => {
@@ -64,8 +62,8 @@ const Home: React.FC = () => {
       window.onscroll = null;
     };
   }, [currentIndex]);
- 
-  
+
+
 
   return (
     <div>
@@ -95,16 +93,16 @@ const Home: React.FC = () => {
           </div>
           <p>Eu estou aqui para apresentar a ideia que já está em prática. Uma parceria entre as empresas Gazin e Unipar, com o propósito de preparar jovens para o futuro.</p>
           <div className="btn-box">
-             <div>
-                <Button as={RouterLink} to="/cadastrar" mr={4} variant="outline" className='btn'>
-                  cadastrar-se
-                </Button>
-             </div>
-             <div>
-                <Button as={RouterLink} to="/Login" mr={4} variant="outline" className='btn'>
-                  Login
-                </Button>
-             </div>
+            <div>
+              <Button as={RouterLink} to="/create" mr={4} variant="outline" className='btn'>
+                cadastrar-se
+              </Button>
+            </div>
+            <div>
+              <Button as={RouterLink} to="/Login" mr={4} variant="outline" className='btn'>
+                Login
+              </Button>
+            </div>
           </div>
         </div>
 
@@ -213,7 +211,7 @@ const Home: React.FC = () => {
                 <div className="progress">
                   <h3>Word<span>100%</span></h3>
                   <div className="bar">
-                    <span>a</span>
+                     <span>a</span>
                   </div>
                 </div>
 
@@ -225,7 +223,7 @@ const Home: React.FC = () => {
                 </div>
 
                 <div className="progress">
-                  <h3>Realidade Virtual<span>75%</span></h3>
+                  <h3>Realidade Virtual<span>50%</span></h3>
                   <div className="bar">
                     <span>a</span>
                   </div>
