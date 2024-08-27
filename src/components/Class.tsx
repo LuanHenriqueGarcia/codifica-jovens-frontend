@@ -1,49 +1,61 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Box, Container, List, ListItem, Alert } from '@chakra-ui/react';
+import React, { useState, useEffect } from 'react';
+import '../assets/css/login.css';
+import { Link as RouterLink } from 'react-router-dom';
+import { Box, Button, FormControl, FormLabel, Input, Container, Alert, VStack } from '@chakra-ui/react';
 
-interface User {
-  id: number;
-  name: string;
-  email: string;
-}
 
-const API_URL = 'http://localhost:8000/api'
 
-const UserList: React.FC = () => {
-  const [users, setUsers] = useState<User[]>  ([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+function UserList() {
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axios.get<User[]>(`${API_URL}/api`)
-      .then(response => {
-        setUsers(response.data);
-        setLoading(false);
-      })  
-      .catch(error => {
-        setError('Failed to fetch users');
-        setLoading(false);
-      });
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api');
+        const data = await response.json();
+        setUsers(data);
+      } catch (error) {
+        console.error('Erro ao buscar usuários:', error);
+      }
+    };
+
+    fetchUsers();
   }, []);
 
-  if (loading) return <p>Carregando...</p>;
-  if (error) return <Alert status="error">{error}</Alert>;
-
   return (
-    <Container>
-      <Box mb={4}>
-        <h2>Lista de Usuarios</h2>
+    <div className='center'>
+    <div className='login'>
+    <Container maxW="md" py={6}>
+      <Box mb={4} textAlign="center">
+        <h2 className='tag'>Avaliações</h2>
       </Box>
-      <List spacing={3}>
-        {users.map(user => (
-          <ListItem key={user.id} p={3} shadow="md" borderWidth="1px">
-            {user.name} - {user.email}
-          </ListItem>
-        ))}
-      </List>
+      <VStack spacing={4} align="stretch">
+        <FormControl>
+          <FormLabel htmlFor="email">Excel</FormLabel>
+          <div className="progress">
+                  <h3>qualidade <span>0%</span></h3>
+                  <div className="bar">
+                    </div>
+                    </div>
+        </FormControl>
+
+        <FormControl>
+          <FormLabel htmlFor="password">Senha</FormLabel>
+          <Input
+            className='credencias'
+            id="password"
+            type="password"
+      
+          />
+        </FormControl>
+      
+      </VStack>
+
     </Container>
+ </div>
+
+ </div>
   );
-};
+}
 
 export default UserList;

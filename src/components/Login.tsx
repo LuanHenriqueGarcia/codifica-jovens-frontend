@@ -33,9 +33,6 @@ const Login: React.FC = () => {
       });
   };
 
-    
-
-
   return (
     <div className='center'>
        <div className='login'>
@@ -65,14 +62,14 @@ const Login: React.FC = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </FormControl>
-
+        {message && <Alert status="info" mt={4}>{message}</Alert>}
         <Button onClick={handleLogin}  className='entrar' >Login</Button>
         <div className='cadastrar'>
            Ainda não tem uma conta?
             <Button as={RouterLink} to="/create" mr={4} variant="outline" className='cadastrar-link'>Cadastrar-se</Button>
             </div>
       </VStack>
-      {message && <Alert status="info" mt={4}>{message}</Alert>}
+
     </Container>
     </div>
     </div>

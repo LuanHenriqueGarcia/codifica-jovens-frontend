@@ -24,23 +24,26 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
-    const menuIcon = document.querySelector('#menu-icon') as HTMLElement;
-    const navbar = document.querySelector('.navbar') as HTMLElement;
+    const menuIcon = document.querySelector('#menu-icon') as HTMLElement | null;
+    const navbar = document.querySelector('.navbar') as HTMLElement | null;
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('header nav a');
-
-    menuIcon.onclick = () => {
-      menuIcon.classList.toggle('bx-x');
-      navbar.classList.toggle('active');
-    };
-
+    const header = document.querySelector('header') as HTMLElement | null;
+  
+    if (menuIcon && navbar) {
+      menuIcon.onclick = () => {
+        menuIcon.classList.toggle('bx-x');
+        navbar.classList.toggle('active');
+      };
+    }
+  
     const handleScroll = () => {
       sections.forEach((sec) => {
         const top = window.scrollY;
         const offset = sec.offsetTop - 100;
         const height = sec.offsetHeight;
         const id = sec.getAttribute('id');
-
+  
         if (top >= offset && top < offset + height) {
           navLinks.forEach((link) => {
             link.classList.remove('active');
@@ -48,21 +51,24 @@ const Home: React.FC = () => {
           });
         }
       });
-
-      const header = document.querySelector('header') as HTMLElement;
-      header.classList.toggle('sticky', window.scrollY > 100);
-
-      menuIcon.classList.remove('bx-x');
-      navbar.classList.remove('active');
+  
+      if (header) {
+        header.classList.toggle('sticky', window.scrollY > 100);
+      }
+  
+      if (menuIcon && navbar) {
+        menuIcon.classList.remove('bx-x');
+        navbar.classList.remove('active');
+      }
     };
-
-    window.onscroll = handleScroll;
-
+  
+    window.addEventListener('scroll', handleScroll);
+  
     return () => {
-      window.onscroll = null;
+      window.removeEventListener('scroll', handleScroll);
     };
   }, [currentIndex]);
-
+  
 
 
   return (
