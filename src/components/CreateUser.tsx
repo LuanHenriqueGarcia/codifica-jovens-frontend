@@ -19,19 +19,22 @@ const CreateUser: React.FC = () => {
     setFormErrors({});
     setMessage(null);
 
-    if (!name) setFormErrors(errors => ({ ...errors, name: 'Nome é obrigatório' }));
-    if (!email) setFormErrors(errors => ({ ...errors, email: 'Email é obrigatório' }));
-    if (!password) setFormErrors(errors => ({ ...errors, password: 'Senha é obrigatória' }));
+    const errors: { name?: string; email?: string; password?: string } = {};
+    if (!name) errors.name = 'Nome é obrigatório';
+    if (!email) errors.email = 'Email é obrigatório';
+    if (!password) errors.password = 'Senha é obrigatória';
 
-    if (Object.keys(formErrors).length > 0) return;
+    setFormErrors(errors);
+
+    if (Object.keys(errors).length > 0) return;
 
     axios.post(`${API_URL}/users`, { name, email, password })
-      .then(response => {
+      .then(() => {
         setMessage('Usuário criado com sucesso!');
         setName('');
         setEmail('');
         setPassword('');
-        navigate('/login');
+        navigate('/room'); 
       })
       .catch(error => {
         console.log(error);
@@ -55,7 +58,7 @@ const CreateUser: React.FC = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-            {formErrors.name && <p>{formErrors.name}</p>}
+            {formErrors.name && <p className='red'>{formErrors.name}</p>}
           </div>
           <div>
             <label htmlFor="email">Email:</label>
@@ -66,7 +69,7 @@ const CreateUser: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            {formErrors.email && <p>{formErrors.email}</p>}
+            {formErrors.email && <p className='red'>{formErrors.email}</p>}
           </div>
           <div>
             <label htmlFor="password">Senha:</label>
@@ -77,13 +80,15 @@ const CreateUser: React.FC = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            {formErrors.password && <p>{formErrors.password}</p>}
-            {message && <p className='red'>{message}</p>}
+            {formErrors.password && <p className='red'>{formErrors.password}</p>}
           </div>
+          {message && <p className='red'>{message}</p>}
           <button type="submit" className='entrar'>Cadastrar</button>
           <div className='cadastrar'>
             Já tem uma conta?
-            <Button as={RouterLink} to="/login" mr={4} variant="outline" className='cadastrar-link'>Entrar</Button>
+            <Button as={RouterLink} to="/login" mr={4} variant="outline" className='cadastrar-link'>
+              Entrar
+            </Button>
           </div>
         </form>
       </div>
