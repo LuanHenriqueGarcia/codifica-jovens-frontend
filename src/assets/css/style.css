@@ -87,6 +87,15 @@ section {
   background-position: center;
 }
 
+.home2 {
+  display: flex;
+  align-items: center;
+  padding: 0 9%;
+  background: url("../img/backgroud.webp") no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 .home-content {
   max-width: 60rem;
 }

@@ -25,7 +25,7 @@ const CreateUser: React.FC = () => {
     if (!password) errors.password = 'Senha é obrigatória';
 
     setFormErrors(errors);
-
+    
     if (Object.keys(errors).length > 0) return;
 
     axios.post(`${API_URL}/users`, { name, email, password })
@@ -64,7 +64,7 @@ const CreateUser: React.FC = () => {
             <label htmlFor="email">Email:</label>
             <input
               className='credencias'
-              type="email"
+              type="email"  
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
