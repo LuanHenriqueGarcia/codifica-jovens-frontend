@@ -10,8 +10,8 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [message, setMessage] = useState<string | null>(null);
-  
-  const navigate = useNavigate(); 
+
+  const navigate = useNavigate();
   const handleLogin = () => {
     setMessage(null);
 
@@ -25,7 +25,7 @@ const Login: React.FC = () => {
         const { token } = response.data;
         localStorage.setItem('token', JSON.stringify(token));
         setMessage('Login bem-sucedido!');
-        navigate('/room'); 
+        navigate('/room');
       })
       .catch(() => {
         setMessage('Falha no login. Verifique suas credenciais.');
@@ -69,7 +69,7 @@ const Login: React.FC = () => {
             </div>
           </VStack>
         </Container>
-      </div>  
+      </div>
     </div>
   );
 };

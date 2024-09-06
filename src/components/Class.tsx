@@ -47,12 +47,9 @@ function UserList() {
       
           />
         </FormControl>
-      
       </VStack>
-
     </Container>
  </div>
-
  </div>
   );
 }

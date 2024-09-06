@@ -25,16 +25,27 @@ const CreateUser: React.FC = () => {
     if (!password) errors.password = 'Senha é obrigatória';
 
     setFormErrors(errors);
-    
+
     if (Object.keys(errors).length > 0) return;
+
 
     axios.post(`${API_URL}/users`, { name, email, password })
       .then(() => {
-        setMessage('Usuário criado com sucesso!');
-        setName('');
-        setEmail('');
-        setPassword('');
-        navigate('/room'); 
+        // Após criar o usuário, faz login automaticamente
+        axios.post(`${API_URL}/login`, { email, password })
+          .then(response => {
+            const { token } = response.data;
+            localStorage.setItem('token', JSON.stringify(token));
+            setMessage('Usuário criado com sucesso e login realizado!');
+            setName('');
+            setEmail('');
+            setPassword('');
+            navigate('/room');
+          })
+          .catch(error => {
+            console.log(error);
+            setMessage('Usuário criado, mas falha ao fazer login.');
+          });
       })
       .catch(error => {
         console.log(error);
@@ -64,7 +75,7 @@ const CreateUser: React.FC = () => {
             <label htmlFor="email">Email:</label>
             <input
               className='credencias'
-              type="email"  
+              type="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
