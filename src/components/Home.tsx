@@ -5,6 +5,7 @@ import imageToAdd from "./../assets/img/image.png";
 import imageToAdd2 from "./../assets/img/image1.png";
 import { Button } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
+import axios from 'axios'; // Importando axios
 
 const Home: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -12,6 +13,12 @@ const Home: React.FC = () => {
   const texts = ["Realidade virtual, Robótica e IA", "Word, Excel e Lógica de programação"];
   const images = [imageToAdd, imageToAdd2];
   const names = ["Eduarda", "Cleber"];
+
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [emailSubject, setEmailSubject] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleNextClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
@@ -69,7 +76,25 @@ const Home: React.FC = () => {
     };
   }, [currentIndex]);
 
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
 
+    const formData = {
+      full_name: fullName,
+      email: email,
+      phone_number: phoneNumber,
+      email_subject: emailSubject,
+      message: message,
+    };
+
+    try {
+      const response = await axios.post('http://localhost:8000/api/contacts', formData);
+      alert('Mensagem enviada com sucesso!');
+    } catch (error) {
+      console.error('Erro ao enviar mensagem:', error);
+      alert('Erro ao enviar mensagem.');
+    }
+  };
 
   return (
     <div>
@@ -275,33 +300,65 @@ const Home: React.FC = () => {
         </div>
       </section>
 
+            
       <section className="contact" id="contact">
         <h2 className="heading">Fale <span>Comigo</span></h2>
-        <form action="#">
+        <form onSubmit={handleSubmit}> {/* Alterado para onSubmit */}
           <div className="input-box">
             <div className="input-field">
-              <input type="text" placeholder="Nome completo" required />
+              <input 
+                type="text" 
+                placeholder="Nome completo" 
+                required 
+                value={fullName} 
+                onChange={(e) => setFullName(e.target.value)} // Adicionado onChange
+              />
               <span className="focus"></span>
             </div>
             <div className="input-field">
-              <input type="text" placeholder="Email" required />
+              <input 
+                type="text" 
+                placeholder="Email" 
+                required 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)} // Adicionado onChange
+              />
               <span className="focus"></span>
             </div>
           </div>
 
           <div className="input-box">
             <div className="input-field">
-              <input type="number" placeholder="Número de telefone" required />
+              <input 
+                type="number" 
+                placeholder="Número de telefone" 
+                required 
+                value={phoneNumber} 
+                onChange={(e) => setPhoneNumber(e.target.value)} // Adicionado onChange
+              />
               <span className="focus"></span>
             </div>
             <div className="input-field">
-              <input type="text" placeholder="Tema do Email" required />
+              <input 
+                type="text" 
+                placeholder="Tema do Email" 
+                required 
+                value={emailSubject} 
+                onChange={(e) => setEmailSubject(e.target.value)} // Adicionado onChange
+              />
               <span className="focus"></span>
             </div>
           </div>
 
           <div className="textarea-field">
-            <textarea cols={30} rows={10} placeholder="Sua Mensagem" required></textarea>
+            <textarea 
+              cols={30} 
+              rows={10} 
+              placeholder="Sua Mensagem" 
+              required 
+              value={message} 
+              onChange={(e) => setMessage(e.target.value)} // Adicionado onChange
+            ></textarea>
             <span className="focus"></span>
           </div>
 
