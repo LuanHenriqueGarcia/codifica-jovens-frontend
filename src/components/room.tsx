@@ -7,6 +7,8 @@ const Home: React.FC = () => {
   const [currentIndex] = useState(0);
   const [userName, setUserName] = useState<string | null>(null);
   const [studentList, setStudentList] = useState<string[]>([]);
+  const [forumPosts, setForumPosts] = useState<any[]>([]); // Lista de posts no fórum
+  const [newQuestion, setNewQuestion] = useState<string>(''); // Pergunta a ser feita
 
   useEffect(() => {
     const menuIcon = document.querySelector('#menu-icon') as HTMLElement | null;
@@ -54,6 +56,7 @@ const Home: React.FC = () => {
     };
   }, [currentIndex]);
 
+  // Fetch user data
   useEffect(() => {
     const fetchUserName = async () => {
       try {
@@ -73,6 +76,7 @@ const Home: React.FC = () => {
     fetchUserName();
   }, []);
 
+  // Fetch students list
   useEffect(() => {
     const fetchStudentList = async () => {
       try {
@@ -83,7 +87,7 @@ const Home: React.FC = () => {
               Authorization: `Bearer ${token}`,
             },
           });
-          setStudentList(response.data.map((user: any) => user.name)); // Atualize a lista de alunos
+          setStudentList(response.data.map((user: any) => user.name));
         } else {
           window.location.href = "/login";
         }
@@ -94,6 +98,45 @@ const Home: React.FC = () => {
 
     fetchStudentList();
   }, []);
+
+  // Fetch forum posts
+  useEffect(() => {
+    const fetchForumPosts = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/posts');
+        setForumPosts(response.data); // Atualiza a lista de posts do fórum
+      } catch (error) {
+        console.error('Erro ao buscar os posts do fórum:', error);
+      }
+    };
+    ; fetchForumPosts();
+  }, []);
+
+
+  const handleSubmitQuestion = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem('token');
+      if (token) {
+          await axios.post('http://localhost:8000/api/posts', {
+          title: 'Nova Dúvida',
+          body: newQuestion,
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setNewQuestion(''); // Limpa o campo após o enviosta de post
+        window.location.reload(); // Recarrega a página para atualizar a lis
+      } else {
+        window.location.href = "/login";
+      }
+    } catch (error) {
+      console.error('Erro ao enviar a dúvida:', error);
+    }
+
+  };
 
   return (
     <div>
@@ -113,16 +156,38 @@ const Home: React.FC = () => {
           <span className="active-navbar"></span>
         </nav>
       </header>
+
       <section className="home2" id="home">
         <div className="home-content">
-          <h1>Olá <span>{userName || 'Usuário'}</span> </h1>
+          <h1>Olá <span>{userName || 'Usuário'}</span></h1>
           <p>Organize seus estudos com facilidade nesta área do aluno! Encontre sua turma, assista às aulas gravadas no seu tempo e interaja com seus colegas no fórum de dúvidas.</p>
-
         </div>
       </section>
 
+      {/* Seção do fórum de dúvidas */}
       <section className="about" id="about">
-        <h2>Fórum de Dúvidas</h2>
+        <h1>Fórum de dúvidas</h1>
+        <div className='forum'>
+          {forumPosts.map((post, index) => (
+            <div key={index} className='questions'>
+              <p>{post.user.name}</p>
+              <div className='response'>
+                {post.body}
+              </div>
+            </div>
+          ))}
+
+          {/* Formulário para enviar nova dúvida */}
+          <form onSubmit={handleSubmitQuestion}>
+            <textarea
+              value={newQuestion}
+              onChange={(e) => setNewQuestion(e.target.value)}
+              placeholder="Digite sua dúvida aqui"
+              required
+            />
+            <button type="submit">Enviar Dúvida</button>
+          </form>
+        </div>
       </section>
 
       <section className="education" id="education">

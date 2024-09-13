@@ -49,6 +49,8 @@ body {
 }
 
 .list-li {
+
+  background: #131313;
   padding: 7px;
   border: 1px solid gray;
   font-size: 1.9em;
@@ -109,7 +111,7 @@ section {
   display: flex;
   align-items: center;
   padding: 0 9%;
-  background: url("../img/backgroud.webp") no-repeat;
+  background: url("../img/teste.jpg") no-repeat;
   background-size: cover;
   background-position: center;
 }
@@ -291,8 +293,8 @@ span {
 
 .about-img {
   position: relative;
-  width: 25rem;
-  height: 25rem;
+  width: 50%;
+  height: 25%;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -304,6 +306,12 @@ span {
   border-radius: 50%;
   border: 0.2rem solid var(--main-color);
 }
+
+.questions {
+  padding-left: 3rem;
+  padding-top: 2rem;
+}
+
 
 .about-img .circle-spin {
   position: absolute;
@@ -331,6 +339,12 @@ span {
 .about-content p {
   font-size: 1.6rem;
   margin: 2rem 0 3rem;
+}
+
+.forum {
+  border: 1px solid #6cb400;
+  width: 75%;
+  height: 50vh; 
 }
 
 .btn-box.btns {

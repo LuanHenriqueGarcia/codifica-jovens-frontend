@@ -5,8 +5,7 @@ import imageToAdd from "./../assets/img/image.png";
 import imageToAdd2 from "./../assets/img/image1.png";
 import { Button } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
-import axios from 'axios'; // Importando axios
-
+import axios from 'axios'; 
 const Home: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const generos = ["Professora ", "Professor "];
@@ -300,27 +299,27 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-            
+
       <section className="contact" id="contact">
         <h2 className="heading">Fale <span>Comigo</span></h2>
         <form onSubmit={handleSubmit}> {/* Alterado para onSubmit */}
           <div className="input-box">
             <div className="input-field">
-              <input 
-                type="text" 
-                placeholder="Nome completo" 
-                required 
-                value={fullName} 
+              <input
+                type="text"
+                placeholder="Nome completo"
+                required
+                value={fullName}
                 onChange={(e) => setFullName(e.target.value)} // Adicionado onChange
               />
               <span className="focus"></span>
             </div>
             <div className="input-field">
-              <input 
-                type="text" 
-                placeholder="Email" 
-                required 
-                value={email} 
+              <input
+                type="text"
+                placeholder="Email"
+                required
+                value={email}
                 onChange={(e) => setEmail(e.target.value)} // Adicionado onChange
               />
               <span className="focus"></span>
@@ -329,21 +328,21 @@ const Home: React.FC = () => {
 
           <div className="input-box">
             <div className="input-field">
-              <input 
-                type="number" 
-                placeholder="Número de telefone" 
-                required 
-                value={phoneNumber} 
+              <input
+                type="number"
+                placeholder="Número de telefone"
+                required
+                value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)} // Adicionado onChange
               />
               <span className="focus"></span>
             </div>
             <div className="input-field">
-              <input 
-                type="text" 
-                placeholder="Tema do Email" 
-                required 
-                value={emailSubject} 
+              <input
+                type="text"
+                placeholder="Tema do Email"
+                required
+                value={emailSubject}
                 onChange={(e) => setEmailSubject(e.target.value)} // Adicionado onChange
               />
               <span className="focus"></span>
@@ -351,12 +350,12 @@ const Home: React.FC = () => {
           </div>
 
           <div className="textarea-field">
-            <textarea 
-              cols={30} 
-              rows={10} 
-              placeholder="Sua Mensagem" 
-              required 
-              value={message} 
+            <textarea
+              cols={30}
+              rows={10}
+              placeholder="Sua Mensagem"
+              required
+              value={message}
               onChange={(e) => setMessage(e.target.value)} // Adicionado onChange
             ></textarea>
             <span className="focus"></span>
