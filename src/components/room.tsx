@@ -9,6 +9,8 @@ const Home: React.FC = () => {
   const [studentList, setStudentList] = useState<string[]>([]);
   const [forumPosts, setForumPosts] = useState<any[]>([]); // Lista de posts no fórum
   const [newQuestion, setNewQuestion] = useState<string>(''); // Pergunta a ser feita
+  const [newResponse, setNewResponse] = useState<{ [key: number]: string }>({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const menuIcon = document.querySelector('#menu-icon') as HTMLElement | null;
@@ -42,7 +44,6 @@ const Home: React.FC = () => {
       if (header) {
         header.classList.toggle('sticky', window.scrollY > 100);
       }
-
       if (menuIcon && navbar) {
         menuIcon.classList.remove('bx-x');
         navbar.classList.remove('active');
@@ -56,7 +57,7 @@ const Home: React.FC = () => {
     };
   }, [currentIndex]);
 
-  // Fetch user data
+  // Obter dados do usuário
   useEffect(() => {
     const fetchUserName = async () => {
       try {
@@ -73,10 +74,11 @@ const Home: React.FC = () => {
       }
     };
 
+
     fetchUserName();
   }, []);
 
-  // Fetch students list
+  // Obter lista de alunos
   useEffect(() => {
     const fetchStudentList = async () => {
       try {
@@ -87,7 +89,7 @@ const Home: React.FC = () => {
               Authorization: `Bearer ${token}`,
             },
           });
-          setStudentList(response.data.map((user: any) => user.name));
+          setStudentList(response.data.map((user: any) => user?.name));
         } else {
           window.location.href = "/login";
         }
@@ -99,26 +101,44 @@ const Home: React.FC = () => {
     fetchStudentList();
   }, []);
 
-  // Fetch forum posts
+  // Obter dados do forum
   useEffect(() => {
     const fetchForumPosts = async () => {
+      setIsLoading(true)
+
       try {
-        const response = await axios.get('http://localhost:8000/api/posts');
-        setForumPosts(response.data); // Atualiza a lista de posts do fórum
+        const tokenStorage = localStorage.getItem('token');
+
+        if (tokenStorage) {
+          const token = JSON.parse(tokenStorage)[1]['plainTextToken'];
+          const response = await axios.get('http://localhost:8000/api/posts', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setForumPosts(response.data);
+        } else {
+          window.location.href = "/login";
+        }
       } catch (error) {
         console.error('Erro ao buscar os posts do fórum:', error);
       }
+      finally {
+        setIsLoading(false)
+      }
     };
-    ; fetchForumPosts();
-  }, []);
 
+    fetchForumPosts();
+  }, []);
 
   const handleSubmitQuestion = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token');
-      if (token) {
-          await axios.post('http://localhost:8000/api/posts', {
+      const tokenStorage = localStorage.getItem('token');
+
+      if (tokenStorage) {
+        const token = JSON.parse(tokenStorage)[1]['plainTextToken'];
+        await axios.post('http://localhost:8000/api/posts', {
           title: 'Nova Dúvida',
           body: newQuestion,
         }, {
@@ -127,8 +147,8 @@ const Home: React.FC = () => {
           },
         });
 
-        setNewQuestion(''); // Limpa o campo após o enviosta de post
-        window.location.reload(); // Recarrega a página para atualizar a lis
+        setNewQuestion('');
+        window.location.reload();
       } else {
         window.location.href = "/login";
       }
@@ -137,6 +157,32 @@ const Home: React.FC = () => {
     }
 
   };
+
+  const handleSubmitResponse = async (e: React.FormEvent, postId: number) => {
+    e.preventDefault();
+    try {
+      const tokenStorage = localStorage.getItem('token');
+      if (tokenStorage) {
+        const token = JSON.parse(tokenStorage)[1]['plainTextToken'];
+        await axios.post(`http://localhost:8000/api/posts/${postId}/comments`, {
+          body: newResponse[postId],
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setNewResponse((prev) => ({ ...prev, [postId]: '' }));
+        window.location.reload();
+      } else {
+        window.location.href = "/login";
+      }
+    } catch (error) {
+      console.error('Erro ao enviar a resposta:', error);
+    }
+  };
+
+  // console.log(forumPosts)
 
   return (
     <div>
@@ -152,44 +198,66 @@ const Home: React.FC = () => {
           <a href="#home" className="active">Aulas</a>
           <a href="#about">Dúvidas</a>
           <a href="#education">Turma</a>
-          <a href=""><i className='bx bxs-user bx-md'></i></a>
           <span className="active-navbar"></span>
         </nav>
       </header>
-
       <section className="home2" id="home">
         <div className="home-content">
           <h1>Olá <span>{userName || 'Usuário'}</span></h1>
           <p>Organize seus estudos com facilidade nesta área do aluno! Encontre sua turma, assista às aulas gravadas no seu tempo e interaja com seus colegas no fórum de dúvidas.</p>
         </div>
       </section>
-
-      {/* Seção do fórum de dúvidas */}
       <section className="about" id="about">
         <h1>Fórum de dúvidas</h1>
         <div className='forum'>
-          {forumPosts.map((post, index) => (
-            <div key={index} className='questions'>
-              <p>{post.user.name}</p>
-              <div className='response'>
-                {post.body}
+
+          {isLoading ? (<p className='loader'></p>) : (forumPosts.map((post, index) => (
+            <div key={index} className='teste'>
+              <div className='questions'>
+                <div className='response'>
+                  <p className='texto'>{post.body}</p>
+                </div>
+                <form onSubmit={(e) => handleSubmitResponse(e, post.id)}>
+                  <div className='div'>
+                    <textarea
+                      className='caixa-resposta'
+                      value={newResponse[post.id] || ''}
+                      onChange={(e) =>
+                        setNewResponse((prev) => ({ ...prev, [post.id]: e.target.value }))
+                      }
+                      placeholder="Digite sua resposta aqui..."
+                      required
+                    />
+                    <div className="btn-box">
+                      <button type="submit" className='btn' id='enviar-resposta'>Responder</button>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
-          ))}
+          )))}
 
-          {/* Formulário para enviar nova dúvida */}
-          <form onSubmit={handleSubmitQuestion}>
-            <textarea
-              value={newQuestion}
-              onChange={(e) => setNewQuestion(e.target.value)}
-              placeholder="Digite sua dúvida aqui"
-              required
-            />
-            <button type="submit">Enviar Dúvida</button>
+        </div>
+
+        <div className='teste1'>
+          <form
+            className='form-submit'
+            onSubmit={handleSubmitQuestion}>
+            <div className='textarea-field'>
+              <textarea
+                className='caixa-duvidas'
+                value={newQuestion}
+                onChange={(e) => setNewQuestion(e.target.value)}
+                placeholder="Digite sua dúvida aqui...."
+                required
+              />
+            </div>
+            <div className="btn-box" id='enviar-pergunta'>
+              <button type="submit" className='btn'>Enviar Dúvida</button>
+            </div>
           </form>
         </div>
       </section>
-
       <section className="education" id="education">
         <h2 className="heading">Sua <span>Turma</span></h2>
         <ul className='list'>
@@ -198,6 +266,21 @@ const Home: React.FC = () => {
           ))}
         </ul>
       </section>
+
+      <footer className="footer">
+        <div className="footer-text">
+          <p>&copy; 2024 - Luan Henrique</p>
+        </div>
+
+        <div className="footer-icorTop">
+          <a href="#menu-icon" onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}>
+            <i className='bx bx-up-arrow-alt'></i>
+          </a>
+        </div>
+      </footer>
     </div>
   );
 };

@@ -343,8 +343,14 @@ span {
 
 .forum {
   border: 1px solid #6cb400;
-  width: 75%;
-  height: 50vh; 
+  width: 100%;
+  height: 50vh;
+  text-align: center;
+  font-size: 15px;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  background: #242424;
 }
 
 .btn-box.btns {
@@ -950,4 +956,101 @@ span {
   border: 1px solid var(--main-color);
   padding: 4px;
   border-radius: 4px;
+}
+
+.caixa-duvidas {
+  resize: none;
+  width: 500px;
+  height: 45px;
+  background: #212121;
+  color: #c9fe00;
+  margin-top: 50px;
+}
+
+.response {
+  word-wrap: break-word;
+  width: 98%;
+}
+
+.botoes {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 80px;
+  width: 100%;
+}
+
+.div {
+  display: flex;
+  height: 50px;
+}
+
+.teste {
+  height: auto;
+}
+
+
+#enviar-resposta {
+  height: 30px;
+}
+
+.caixa-resposta {
+  height: 30px;
+  width: 140%;
+  word-wrap: break-word;
+  background: #0c131c;
+  color: white;
+}
+
+.teste1 {
+  display: flex;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  margin-top: 15%;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 800px) {
+  .loader {
+    margin-top: 20%;
+  }
+}
+
+
+@media (max-width: 500px) {
+  .loader {
+    margin-top: 50%;
+  }
+}
+
+.form-submit {
+  justify-content: center;
+  align-items: center;
+  display: inline-block;
+
+}
+
+.form-submit .btn-box {
+  margin: auto;
+  margin-top: 20px;
+  justify-content: center;
 }
