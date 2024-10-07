@@ -23,34 +23,34 @@ function UserList() {
 
   return (
     <div className='center'>
-    <div className='login'>
-    <Container maxW="md" py={6}>
-      <Box mb={4} textAlign="center">
-        <h2 className='tag'>Avaliações</h2>
-      </Box>
-      <VStack spacing={4} align="stretch">
-        <FormControl>
-          <FormLabel htmlFor="email">Excel</FormLabel>
-          <div className="progress">
-                  <h3>qualidade <span>0%</span></h3>
-                  <div className="bar">
-                    </div>
-                    </div>
-        </FormControl>
+      <div className='login'>
+        <Container maxW="md" py={6}>
+          <Box mb={4} textAlign="center">
+            <h2 className='tag'>Avaliações</h2>
+          </Box>
+          <VStack spacing={4} align="stretch">
+            <FormControl>
+              <FormLabel htmlFor="email">Excel</FormLabel>
+              <div className="progress">
+                <h3>qualidade <span>0%</span></h3>
+                <div className="bar">
+                </div>
+              </div>
+            </FormControl>
 
-        <FormControl>
-          <FormLabel htmlFor="password">Senha</FormLabel>
-          <Input
-            className='credencias'
-            id="password"
-            type="password"
-      
-          />
-        </FormControl>
-      </VStack>
-    </Container>
- </div>
- </div>
+            <FormControl>
+              <FormLabel htmlFor="password">Senha</FormLabel>
+              <Input
+                className='credencias'
+                id="password"
+                type="password"
+
+              />
+            </FormControl>
+          </VStack>
+        </Container>
+      </div>
+    </div>
   );
 }
 

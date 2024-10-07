@@ -31,7 +31,7 @@ const CreateUser: React.FC = () => {
 
     axios.post(`${API_URL}/users`, { name, email, password })
       .then(() => {
-        // Após criar o usuário, faz login automaticamente
+        
         axios.post(`${API_URL}/login`, { email, password })
           .then(response => {
             const { token } = response.data;
@@ -108,3 +108,5 @@ const CreateUser: React.FC = () => {
 };
 
 export default CreateUser;
+
+

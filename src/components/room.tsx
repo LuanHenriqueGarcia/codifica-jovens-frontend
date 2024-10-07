@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../assets/css/style.css';
+import '../assets/css/style.css';     
 import 'boxicons/css/boxicons.min.css';
 import axios from 'axios';
 
@@ -7,8 +7,8 @@ const Home: React.FC = () => {
   const [currentIndex] = useState(0);
   const [userName, setUserName] = useState<string | null>(null);
   const [studentList, setStudentList] = useState<string[]>([]);
-  const [forumPosts, setForumPosts] = useState<any[]>([]); // Lista de posts no fórum
-  const [newQuestion, setNewQuestion] = useState<string>(''); // Pergunta a ser feita
+  const [forumPosts, setForumPosts] = useState<any[]>([]); // Lista 
+  const [newQuestion, setNewQuestion] = useState<string>(''); // Pergunta 
   const [newResponse, setNewResponse] = useState<{ [key: number]: string }>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -57,7 +57,7 @@ const Home: React.FC = () => {
     };
   }, [currentIndex]);
 
-  // Obter dados do usuário
+  // Obter dados 
   useEffect(() => {
     const fetchUserName = async () => {
       try {
@@ -78,7 +78,7 @@ const Home: React.FC = () => {
     fetchUserName();
   }, []);
 
-  // Obter lista de alunos
+  // Obter lista
   useEffect(() => {
     const fetchStudentList = async () => {
       try {
@@ -101,7 +101,7 @@ const Home: React.FC = () => {
     fetchStudentList();
   }, []);
 
-  // Obter dados do forum
+  // Obter dados
   useEffect(() => {
     const fetchForumPosts = async () => {
       setIsLoading(true)
@@ -182,7 +182,7 @@ const Home: React.FC = () => {
     }
   };
 
-  // console.log(forumPosts)
+  console.log(forumPosts)
 
   return (
     <div>
@@ -195,8 +195,8 @@ const Home: React.FC = () => {
         </a>
         <div className="bx bx-menu" id="menu-icon"></div>
         <nav className="navbar">
-          <a href="#home" className="active">Aulas</a>
-          <a href="#about">Dúvidas</a>
+          <a href="#home" className="active">Home</a>
+          <a href="#about">Avaliações</a>
           <a href="#education">Turma</a>
           <span className="active-navbar"></span>
         </nav>
@@ -204,11 +204,12 @@ const Home: React.FC = () => {
       <section className="home2" id="home">
         <div className="home-content">
           <h1>Olá <span>{userName || 'Usuário'}</span></h1>
-          <p>Organize seus estudos com facilidade nesta área do aluno! Encontre sua turma, assista às aulas gravadas no seu tempo e interaja com seus colegas no fórum de dúvidas.</p>
+          <p>Veja a sua turma e deixe sua avaliação! Esta é a oportunidade de compartilhar sua opinião e ajudar a melhorar a experiência de todos. Avalie seus colegas e contribua para o desenvolvimento de um ambiente mais colaborativo e produtivo.
+          </p>
         </div>
       </section>
       <section className="about" id="about">
-        <h1>Fórum de dúvidas</h1>
+        <h1>Avaliações</h1>
         <div className='forum'>
 
           {isLoading ? (<p className='loader'></p>) : (forumPosts.map((post, index) => (
@@ -216,22 +217,11 @@ const Home: React.FC = () => {
               <div className='questions'>
                 <div className='response'>
                   <p className='texto'>{post.body}</p>
+                  <div className='line'>
+
+                  </div>
                 </div>
                 <form onSubmit={(e) => handleSubmitResponse(e, post.id)}>
-                  <div className='div'>
-                    <textarea
-                      className='caixa-resposta'
-                      value={newResponse[post.id] || ''}
-                      onChange={(e) =>
-                        setNewResponse((prev) => ({ ...prev, [post.id]: e.target.value }))
-                      }
-                      placeholder="Digite sua resposta aqui..."
-                      required
-                    />
-                    <div className="btn-box">
-                      <button type="submit" className='btn' id='enviar-resposta'>Responder</button>
-                    </div>
-                  </div>
                 </form>
               </div>
             </div>
@@ -248,12 +238,12 @@ const Home: React.FC = () => {
                 className='caixa-duvidas'
                 value={newQuestion}
                 onChange={(e) => setNewQuestion(e.target.value)}
-                placeholder="Digite sua dúvida aqui...."
+                placeholder="Digite sua avalição aqui..."
                 required
               />
             </div>
             <div className="btn-box" id='enviar-pergunta'>
-              <button type="submit" className='btn'>Enviar Dúvida</button>
+              <button type="submit" className='btn' id='btn-av'>Enviar Avaliação</button>
             </div>
           </form>
         </div>
