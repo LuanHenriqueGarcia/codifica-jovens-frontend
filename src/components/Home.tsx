@@ -6,6 +6,7 @@ import imageToAdd2 from "./../assets/img/image1.png";
 import { Button } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import axios from 'axios';
+
 const Home: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const generos = ["Professora ", "Professor "];
@@ -87,6 +88,7 @@ const Home: React.FC = () => {
     };
 
     try {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const response = await axios.post('http://localhost:8000/api/contacts', formData);
       alert('Mensagem enviada com sucesso!');
     } catch (error) {
