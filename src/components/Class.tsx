@@ -44,7 +44,6 @@ function UserList() {
                 className='credencias'
                 id="password"
                 type="password"
-
               />
             </FormControl>
           </VStack>

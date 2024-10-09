@@ -6,7 +6,7 @@ import Room from './components/room';
 import Login from './components/Login';
 import CreateUser from './components/CreateUser';
 import UserList from './components/Class'
-import ListUser from './components/admin';
+
 
 
 const App: React.FC = () => {
@@ -19,7 +19,6 @@ const App: React.FC = () => {
         <Route path="/create" element={<CreateUser />} />
         <Route path="/UserList" element={<UserList />} /> 
         <Route path="/Room" element={<Room />} />
-        <Route path="/Admin" element={<ListUser />} />
       </Routes>
     </Router>
   );

@@ -28,7 +28,6 @@ const CreateUser: React.FC = () => {
 
     if (Object.keys(errors).length > 0) return;
 
-
     axios.post(`${API_URL}/users`, { name, email, password })
       .then(() => {
         
