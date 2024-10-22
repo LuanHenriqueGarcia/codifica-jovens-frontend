@@ -203,6 +203,20 @@ const Home: React.FC = () => {
       </header>
       <section className="home2" id="home">
         <div className="home-content">
+        <div className="area" >
+         <ul className="circles">
+           <li></li>
+           <li></li>
+           <li></li>
+           <li></li>
+           <li></li>
+           <li></li>
+           <li></li>
+           <li></li>
+           <li></li>
+           <li></li>
+        </ul>
+    </div >
           <h1>Olá <span>{userName || 'Usuário'}</span></h1>
           <p>Veja a sua turma e deixe sua avaliação! Esta é a oportunidade de compartilhar sua opinião e ajudar a melhorar a experiência de todos. Avalie seus colegas e contribua para o desenvolvimento de um ambiente mais colaborativo e produtivo.
           </p>
