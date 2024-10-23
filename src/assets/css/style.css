@@ -50,7 +50,6 @@ body {
 }
 
 .list-li {
-
   background: #131313;
   padding: 7px;
   border: 1px solid gray;
@@ -58,6 +57,12 @@ body {
   list-style-type: none;
   text-decoration: none;
   border-radius: 4px;
+}
+
+.list-li:hover {
+   background: #0c131c;
+   color: var(--main-color);
+   border: #c8ff00 5px solid;
 }
 
 .bx {
@@ -1240,3 +1245,4 @@ span {
   }
 
 }
+
