@@ -59,17 +59,15 @@ const Videos: React.FC = () => {
                 <button onClick={() => handleButtonClick(video.src)}>Assistir Aula</button>
               )}
             </div>
-            {visibleVideos.includes(video.src) && (
-              <div className="iframe-container">
-                <iframe
-                  src={video.src}
-                  frameBorder="0"
-                  allowFullScreen
-                  title={video.title}
-                  className="video-frame"
-                />
-              </div>
-            )}
+            <div className="iframe-container">
+              <iframe
+                src={video.src}
+                frameBorder="0"
+                allowFullScreen
+                title={video.title}
+                className="video-frame"
+              />
+            </div>
           </div>
         ))}
       </div>

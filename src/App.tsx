@@ -8,13 +8,12 @@ import CreateUser from './components/CreateUser';
 import UserList from './components/Class'
 
 
-
 const App: React.FC = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={< Home />} />
-        <Route path="/Videos" element={< Videos />} />
+        <Route path="/videos" element={< Videos />} />
         <Route path="/Login" element={< Login />} />
         <Route path="/create" element={<CreateUser />} />
         <Route path="/UserList" element={<UserList />} /> 

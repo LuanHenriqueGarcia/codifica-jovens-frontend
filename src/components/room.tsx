@@ -198,7 +198,8 @@ const Home: React.FC = () => {
           <a href="#home" className="active">Home</a>
           <a href="#about">Avaliações</a>
           <a href="#education">Turma</a>
-          <span className="active-navbar"></span>
+          <img src="../assets/img/user.png" alt="" /> 
+        <span className="active-navbar"></span>
         </nav>
       </header>
       <section className="home2" id="home">
