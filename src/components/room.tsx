@@ -7,8 +7,8 @@ const Home: React.FC = () => {
   const [currentIndex] = useState(0);
   const [userName, setUserName] = useState<string | null>(null);
   const [studentList, setStudentList] = useState<string[]>([]);
-  const [forumPosts, setForumPosts] = useState<any[]>([]); // Lista 
-  const [newQuestion, setNewQuestion] = useState<string>(''); // Pergunta 
+  const [forumPosts, setForumPosts] = useState<any[]>([]); 
+  const [newQuestion, setNewQuestion] = useState<string>('');
   const [newResponse, setNewResponse] = useState<{ [key: number]: string }>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -231,6 +231,7 @@ const Home: React.FC = () => {
             <div key={index} className='teste'>
               <div className='questions'>
                 <div className='response'>
+                  <p className='title'>avaliação de {userName}</p>
                   <p className='texto'>{post.body}</p>
                   <div className='line'>
 
